@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MoveWithKunal Content Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Mr+Dafoe&family=Caveat+Brush&display=swap">
+<style>
+/* Layout: dojo-black working kit in Kunal's own brand (black, gold, bone). Tabs across the top; maker = preview + controls. */
+:root{
+  --bg:#0A0A0B; --surface:#141416; --surface-2:#1B1B1E; --line:#2A2A2E;
+  --ink:#F2F0EA; --ink-2:#B6B3AA; --ink-3:#7E7B73; --gold:#FFC21A; --gold-ink:#1A1400;
+  --good:#7FD3A0; --warn:#F2A65A;
+  --f-display:"Anton",Impact,"Arial Narrow",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;line-height:1;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:clamp(40px,7vw,72px);text-transform:uppercase}
+h1 em{font-style:normal;color:var(--gold)}
+h2{font-size:clamp(28px,4vw,40px);text-transform:uppercase}
+h3{font-size:22px;text-transform:uppercase;letter-spacing:.02em}
+p{margin:0;max-width:68ch}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+header.top{display:flex;flex-wrap:wrap;gap:16px 40px;align-items:flex-end;justify-content:space-between;padding-block:32px 22px;border-bottom:1px solid var(--line)}
+header.top .intro{display:flex;flex-direction:column;gap:10px}
+header.top .lede{color:var(--ink-2);max-width:52ch}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;overflow-x:auto;padding-block:10px;border-bottom:1px solid var(--line);margin-bottom:28px;scrollbar-width:none}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav.tabs button{flex:0 0 auto;background:none;border:1px solid transparent;color:var(--ink-2);font:600 13px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;padding:11px 14px;border-radius:999px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--gold);color:var(--gold-ink)}
+nav.tabs button:hover:not([aria-selected="true"]){border-color:var(--line);color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+section.tab{display:flex;flex-direction:column;gap:28px}
+
+/* maker */
+.maker{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:28px;align-items:start}
+.preview-col{position:sticky;top:76px;display:flex;flex-direction:column;gap:12px;order:2}
+.controls{display:flex;flex-direction:column;gap:18px;order:1;min-width:0}
+canvas#cv{width:100%;height:auto;display:block;border-radius:10px;background:#000;border:1px solid var(--line)}
+.preview-col .row{display:flex;gap:8px;flex-wrap:wrap}
+@media (max-width:900px){.maker{grid-template-columns:minmax(0,1fr)}.preview-col{position:static;order:0;max-width:440px;width:100%;margin:0 auto}.controls{order:1}}
+fieldset{border:1px solid var(--line);border-radius:12px;padding:16px;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;background:var(--surface)}
+legend{font:600 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);padding:0 6px}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label,.lbl{font-size:12px;color:var(--ink-2);font-weight:500}
+input[type=text],select,textarea{width:100%;background:var(--surface-2);border:1px solid var(--line);color:var(--ink);font:500 14px/1.3 var(--f-body);padding:10px 11px;border-radius:8px}
+textarea{resize:vertical;min-height:84px;font-family:var(--f-body)}
+input[type=range]{width:100%;accent-color:var(--gold)}
+input[type=file]{color:var(--ink-2);font-size:13px;max-width:100%}
+input[type=file]::file-selector-button{background:var(--gold);color:var(--gold-ink);border:0;border-radius:999px;padding:9px 14px;font:700 12px var(--f-body);letter-spacing:.06em;text-transform:uppercase;margin-right:10px;cursor:pointer}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:8px}
+.check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)}
+.check input{accent-color:var(--gold);width:18px;height:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:var(--gold-ink);border:0;border-radius:999px;padding:12px 18px;font:700 13px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--ink-3)}
+.btn.sm{padding:8px 12px;font-size:11px}
+.hint{font-size:13px;color:var(--ink-3)}
+.status{font-size:13px;color:var(--good);min-height:1.2em}
+
+.gridprev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;background:var(--line);border:1px solid var(--line);max-width:520px}
+.gridprev .cell{aspect-ratio:3/4;background:var(--surface);position:relative;overflow:hidden}
+.gridprev img{width:100%;height:100%;object-fit:cover;display:block}
+.gridprev .empty{display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:12px;text-align:center;padding:8px}
+
+/* highlights */
+.hl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+@media (max-width:700px){.hl{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hl .item{display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 12px;min-width:0}
+.hl canvas{width:120px;height:120px;border-radius:50%;border:2px solid #3a3a3f;object-fit:cover}
+.hl input{text-align:center}
+
+/* plan */
+.weeks{display:flex;flex-direction:column;gap:36px}
+.week-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px}
+.posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+@media (max-width:820px){.posts{grid-template-columns:minmax(0,1fr)}}
+.post{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.post .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{font:600 11px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;padding:6px 8px;border-radius:5px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.chip.slot{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.chip.reuse{color:var(--good);border-color:#2f4a3a}
+.post dl{margin:0;display:grid;grid-template-columns:72px minmax(0,1fr);gap:6px 12px;font-size:14px}
+.post dt{color:var(--ink-3);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding-top:2px}
+.post dd{margin:0;color:var(--ink-2)}
+.cap{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:12px;white-space:pre-wrap;font-size:13.5px;color:var(--ink);line-height:1.55;max-height:220px;overflow:auto}
+.post .actions{display:flex;gap:8px;flex-wrap:wrap}
+.rhythm{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:820px){.rhythm{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.rhythm div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.rhythm b{font-family:var(--f-display);font-weight:400;font-size:22px;text-transform:uppercase;color:var(--gold)}
+.rhythm span{font-size:13px;color:var(--ink-2)}
+
+/* notes / profile */
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+ul.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+ul.list li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;color:var(--ink-2);font-size:14.5px}
+ul.list li::before{content:"";width:10px;height:10px;border-radius:2px;margin-top:7px}
+ul.keep li::before{background:var(--good)}
+ul.fix li::before{background:var(--warn)}
+ul.list b{color:var(--ink);font-weight:600}
+.bio{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:14px;white-space:pre-wrap;font-size:15px;line-height:1.55}
+.count{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+ol.steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;color:var(--ink-2)}
+ol.steps b{color:var(--ink)}
+footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="intro">
+    <span class="eyebrow">@movewithkunal · Content kit by Beyond Branding</span>
+    <h1>Move With <em>Kunal</em> Kit</h1>
+    <p class="lede">Make on-brand covers from real photos, export highlight icons, and follow a 4-week plan built from the Instagram audit.</p>
+  </div>
+  <p class="hint">Open in Chrome or Safari to export PNGs.<br>Nothing uploads anywhere. Photos stay on this device.</p>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Kit sections">
+  <button role="tab" aria-selected="true" data-tab="maker">Cover maker</button>
+  <button role="tab" aria-selected="false" data-tab="plan">4-week plan</button>
+  <button role="tab" aria-selected="false" data-tab="highlights">Highlight covers</button>
+  <button role="tab" aria-selected="false" data-tab="profile">Profile</button>
+  <button role="tab" aria-selected="false" data-tab="notes">Design rules</button>
+</nav>
+
+<!-- COVER MAKER -->
+<section class="tab" id="tab-maker">
+  <div class="maker">
+    <div class="preview-col">
+      <canvas id="cv" width="1080" height="1920" aria-label="Cover preview"></canvas>
+      <div class="row">
+        <button class="btn" id="dl">Download PNG</button>
+        <button class="btn ghost" id="addgrid">Add to grid preview</button>
+      </div>
+      <label class="check"><input type="checkbox" id="guides" checked> Show profile-grid crop (not exported)</label>
+      <div class="status" id="status" role="status"></div>
+    </div>
+
+    <div class="controls">
+      <fieldset>
+        <legend>Start from</legend>
+        <div class="f full"><label for="preset">Template</label><select id="preset"></select></div>
+        <div class="f"><label for="fmt">Format</label>
+          <select id="fmt"><option value="reel">Reel cover · 1080×1920</option><option value="post">Carousel / post · 1080×1350</option></select></div>
+        <div class="f"><label for="theme">Card style</label>
+          <select id="theme"><option value="dark">Dark (default)</option><option value="light">Light (guides, checklists)</option></select></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Photo</legend>
+        <div class="f full"><label for="photo">Kunal's real photo or a frame from the reel</label><input type="file" id="photo" accept="image/*"></div>
+        <div class="f"><label for="zoom">Zoom</label><input type="range" id="zoom" min="1" max="2.5" step="0.01" value="1"></div>
+        <div class="f"><label for="shade">Text shade</label><input type="range" id="shade" min="0.3" max="1" step="0.01" value="0.82"></div>
+        <div class="f"><label for="px">Move left / right</label><input type="range" id="px" min="-100" max="100" step="1" value="0"></div>
+        <div class="f"><label for="py">Move up / down</label><input type="range" id="py" min="-100" max="100" step="1" value="0"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Top bar</legend>
+        <div class="f"><label for="num">Series number</label><input type="text" id="num" maxlength="3" placeholder="01, or leave blank"></div>
+        <div class="f"><label for="pill">Corner label</label><select id="pill"><option>REEL</option><option>CAROUSEL</option><option value="">None</option></select></div>
+        <div class="f full"><label for="cat">Category</label><input type="text" id="cat" maxlength="26"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Hook (3–4 words reads best)</legend>
+        <div class="f full"><span class="lbl">Line 1</span><div class="pair"><input type="text" id="l1" aria-label="Line 1"><select id="c1" aria-label="Line 1 colour"><option value="w">White</option><option value="y">Gold</option></select></div></div>
+        <div class="f full"><span class="lbl">Line 2</span><div class="pair"><input type="text" id="l2" aria-label="Line 2"><select id="c2" aria-label="Line 2 colour"><option value="w">White</option><option value="y">Gold</option></select></div></div>
+        <div class="f full"><span class="lbl">Line 3 (optional)</span><div class="pair"><input type="text" id="l3" aria-label="Line 3"><select id="c3" aria-label="Line 3 colour"><option value="w">White</option><option value="y">Gold</option></select></div></div>
+        <div class="f full"><label for="sub">Supporting line</label><input type="text" id="sub" maxlength="48"></div>
+        <label class="check"><input type="checkbox" id="swoosh"> Gold brush stroke</label>
+        <label class="check"><input type="checkbox" id="handle"> @movewithkunal</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Key points (max 3)</legend>
+        <div class="f full"><div class="pair"><input type="text" id="p1t" aria-label="Point 1"><select id="p1i" aria-label="Point 1 icon"></select></div></div>
+        <div class="f full"><div class="pair"><input type="text" id="p2t" aria-label="Point 2"><select id="p2i" aria-label="Point 2 icon"></select></div></div>
+        <div class="f full"><div class="pair"><input type="text" id="p3t" aria-label="Point 3"><select id="p3i" aria-label="Point 3 icon"></select></div></div>
+        <div class="f full"><label for="ppos">Position</label><select id="ppos"><option value="below">Below the hook</option><option value="right">Right column</option></select></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Extras</legend>
+        <div class="f full"><label for="side">Side element</label>
+          <select id="side">
+            <option value="none">None</option>
+            <option value="roles">Role list (top right)</option>
+            <option value="cards">Numbered list panel (right)</option>
+            <option value="steps">Handwritten steps (right)</option>
+            <option value="checklist">Checklist (below hook)</option>
+          </select></div>
+        <div class="f full"><label for="sideText">Items, one per line (max 5)</label><textarea id="sideText"></textarea></div>
+        <div class="f full"><label for="accent">Handwritten accent (new line = line break)</label><textarea id="accent" style="min-height:60px"></textarea></div>
+      </fieldset>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+          <h3>Grid preview</h3>
+          <button class="btn ghost sm" id="cleargrid">Clear</button>
+        </div>
+        <p class="hint">Covers you add appear as they will on his profile, cropped 3:4. Newest first. Use it to check the grid doesn't become a wall of the same tile.</p>
+        <div class="gridprev" id="gridprev"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section class="tab" id="tab-plan" hidden>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">2 – 29 November 2026</span>
+    <h2>Four posts a week, four jobs</h2>
+    <p class="hint" style="font-size:15px">Built from the audit: personal posts averaged 103 likes + comments, police training 100, tutorials 61. The plan rotates formats so no single one repeats back to back. Six posts reuse footage he already has.</p>
+  </div>
+  <div class="rhythm">
+    <div><span class="eyebrow">Mon · 2:00 pm</span><b>Skill</b><span>Bo Staff Basics series. Numbered, face in the first 3 seconds.</span></div>
+    <div><span class="eyebrow">Wed · 7:30 pm</span><b>Authority</b><span>Self-defence and real sessions. His edge over other fitness pages.</span></div>
+    <div><span class="eyebrow">Fri · 7:30 pm</span><b>Person</b><span>Story and life. His best-performing content.</span></div>
+    <div><span class="eyebrow">Sun · 11:00 am</span><b>Carousel</b><span>Saveable guides made from stills of the week's footage.</span></div>
+  </div>
+  <p class="hint">Wednesday and Friday move to 7:30 pm as a test against the current 2 pm slot. Compare after four weeks.</p>
+  <div class="weeks" id="weeks"></div>
+
+  <div class="card">
+    <h3>How to measure it</h3>
+    <p class="hint" style="font-size:14.5px">Ayush tracks these weekly in Metricool (competitor view). If Kunal connects his account, add views, saves and shares.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Metric</th><th>Baseline (Aug–Oct)</th><th>Target by 29 Nov</th></tr></thead>
+        <tbody>
+          <tr><td>Avg likes + comments per reel</td><td class="n">76</td><td class="n">90+</td></tr>
+          <tr><td>Avg comments per reel</td><td class="n">6</td><td class="n">10+</td></tr>
+          <tr><td>Reels with zero comments</td><td class="n">4 of 21</td><td class="n">0</td></tr>
+          <tr><td>Best format</td><td>Personal (103)</td><td>Self-defence close to personal</td></tr>
+          <tr><td>7:30 pm vs 2 pm slot</td><td>Untested</td><td>Pick the winner for December</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="tab" id="tab-highlights" hidden>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <h2>Highlight covers</h2>
+    <p class="hint" style="font-size:15px">Gold line icons on black, matching the covers. Exported at 1080×1920 with the icon centred, so Instagram's circle crop lands right. Edit the names to change the file names; Instagram's highlight title is set in the app.</p>
+    <div><button class="btn" id="dlall">Download all</button></div>
+  </div>
+  <div class="hl" id="hl"></div>
+  <p class="hint">Suggested order: Classes, Self-Defence, Bo Staff, Students, Training, Fitness, Lifestyle, Gear. Classes first because it's the one that turns a follower into a student.</p>
+</section>
+
+<!-- PROFILE -->
+<section class="tab" id="tab-profile" hidden>
+  <h2>Profile copy</h2>
+  <div class="two">
+    <div class="card">
+      <span class="eyebrow">Name field (searchable)</span>
+      <div class="bio" id="nameTxt">Kunal Gupta | Self-Defence &amp; Bo Staff</div>
+      <div class="actions" style="display:flex;gap:8px;align-items:center"><button class="btn ghost sm" data-copy="nameTxt">Copy</button><span class="count" id="nameCount"></span></div>
+      <p class="hint">Instagram search matches the name field. "Self-defence" and "bo staff" are what people actually type. His current "Fitness x Martial Arts" competes with thousands of gym pages.</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Bio</span>
+      <div class="bio" id="bioTxt">Martial arts &amp; self-defence coach 🥋
+Indore Police workshop · 200+ students
+Bo staff · JKD · Karate · MMA
+Classes &amp; workshops ↓ DM "TRAIN"</div>
+      <div class="actions" style="display:flex;gap:8px;align-items:center"><button class="btn ghost sm" data-copy="bioTxt">Copy</button><span class="count" id="bioCount"></span></div>
+      <p class="hint">Leads with what he teaches and proof, ends with one action. "Textile engineer" moves into the Meet Kunal reel, where it's a great story rather than a confusing bio line. Confirm city if he wants local students to find him.</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Category</span>
+      <p>Switch from <b>Artist</b> to a coaching or martial-arts category in Edit profile. "Artist" tells new visitors the wrong thing.</p>
+      <span class="eyebrow">Links (Instagram allows up to 5)</span>
+      <ol class="steps">
+        <li><b>Class enquiry</b> · WhatsApp link</li>
+        <li><b>Bo staff I use · 5.5 ft</b> · Amazon</li>
+        <li><b>Bo staff · 4 ft</b> · Amazon</li>
+        <li><b>YouTube</b> · current channel link</li>
+      </ol>
+      <p class="hint">Affiliate links in captions can't be tapped. In the bio they can.</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Pin these three</span>
+      <ol class="steps">
+        <li><b>Meet Kunal</b> · who he is (post 3 in the plan)</li>
+        <li><b>Police Training</b> · proof he's trusted (post 6)</li>
+        <li><b>Bo Staff Basics 01</b> · the series to follow (post 1)</li>
+      </ol>
+      <p class="hint">A new visitor should understand person, proof and value in three tiles.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOTES -->
+<section class="tab" id="tab-notes" hidden>
+  <h2>Review of the template concept</h2>
+  <div class="two">
+    <div class="card">
+      <h3>Keep</h3>
+      <ul class="list keep">
+        <li><span><b>The category system.</b> Six clear content types map almost exactly onto what the data says works.</span></li>
+        <li><span><b>Anton + gold on black.</b> Reads at thumbnail size and feels like martial arts, not a gym.</span></li>
+        <li><span><b>Series numbering.</b> "Bo Staff Basics 01, 02, 03" gives people a reason to follow.</span></li>
+        <li><span><b>Simple highlight icons.</b> One line weight, one colour.</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Fix before using</h3>
+      <ul class="list fix">
+        <li><span><b>Use only real photos.</b> The mockups show AI-generated versions of Kunal and an AI police scene. Followers will notice the face is off, and a fake police photo undercuts the one thing that makes him credible. Pull frames from his own reels.</span></li>
+        <li><span><b>Respect the grid crop.</b> His profile grid shows 3:4, so the top and bottom 240px of a reel cover disappear. The maker shows this line; keep the badge and hook inside it.</span></li>
+        <li><span><b>Number = series episode.</b> In the mockup grid, 01–12 is tile order. Only number series posts, otherwise the badge means nothing.</span></li>
+        <li><span><b>Don't brand the personal posts heavily.</b> Personal content is his best performer because it feels real. Use a lighter cover or the photo alone for "Off the Mat" and family moments.</span></li>
+        <li><span><b>Cut text on covers.</b> At grid size only the hook reads. Five-item list panels are fine on a carousel cover in the feed, but the list belongs on the slides.</span></li>
+        <li><span><b>Typos and clipping in the mockups:</b> "FIFENESS" on Meet Kunal, "WRONG GRIP" clipped by the panel, a cut-off "REEL" label on template 06.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Cover rules</h3>
+    <ol class="steps">
+      <li><b>One hook, 3–4 words.</b> If it needs a fifth word, it goes in the supporting line.</li>
+      <li><b>One accent per cover.</b> Brush stroke or handwriting or icons, rarely all three.</li>
+      <li><b>Action frame for skill, face for story.</b> A mid-move frame for tutorials; eye contact for personal and self-defence.</li>
+      <li><b>Gold for the word that matters.</b> Usually the topic ("Self-Defence", "Basics 01"), never the filler.</li>
+      <li><b>Check the grid preview</b> before posting. If three gold-heavy tiles sit in a row, swap in a personal one.</li>
+      <li><b>Students on camera need permission,</b> and a parent's consent for anyone under 18.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>Prepared by Beyond Branding for Kunal Gupta (@movewithkunal) · October 2026 · Based on Metricool data, 28 Jul – 28 Oct 2026.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+
+/* ---------- icons ---------- */
+const ICONS={
+  target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8"/>',
+  rotate:'<path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/>',
+  bolt:'<path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12z"/>',
+  eye:'<path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  gear:'<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',
+  chart:'<path d="M5 20v-6M10 20V9M15 20v-4M20 20V5"/><path d="M3 20h18"/>',
+  figure:'<circle cx="12" cy="4.5" r="2"/><path d="M12 7.5v6M12 13.5l-4.5 7M12 13.5l4.5 7M6.5 10.5h11"/>',
+  check:'<path d="M4.5 12.5l5 5 10-11"/>',
+  shield:'<path d="M12 2.8l7.5 2.8v6c0 5-3.3 8.3-7.5 9.6-4.2-1.3-7.5-4.6-7.5-9.6v-6z"/><path d="M9 12l2.2 2.2L15.5 10"/>',
+  group:'<circle cx="12" cy="7.5" r="2.8"/><circle cx="5" cy="9.5" r="2"/><circle cx="19" cy="9.5" r="2"/><path d="M7 20v-1.5a5 5 0 0 1 10 0V20"/><path d="M2 20v-1a3 3 0 0 1 4.3-2.7M22 20v-1a3 3 0 0 0-4.3-2.7"/>',
+  run:'<circle cx="15.5" cy="4" r="2"/><path d="M7 21l3.2-6.2 3.3 2.4V21"/><path d="M5.5 10.5l3.5-3 5 .8 2.2 3 3.3.9"/><path d="M9 7.5l1.2 7.3"/>',
+  staffs:'<path d="M4 4l16 16M20 4L4 20"/><path d="M2.5 6l3.5-3.5M18 21.5l3.5-3.5M18 2.5L21.5 6M2.5 18L6 21.5"/>',
+  trophy:'<path d="M8 3.5h8V9a4 4 0 0 1-8 0z"/><path d="M8 5.5H5a3 3 0 0 0 3.2 4.3M16 5.5h3a3 3 0 0 1-3.2 4.3"/><path d="M12 13v3.5M8.5 20.5h7M9.5 16.5h5v4h-5z"/>',
+  dumbbell:'<path d="M6.5 7.5v9M3.5 9.5v5M17.5 7.5v9M20.5 9.5v5M6.5 12h11"/>',
+  mountain:'<path d="M2.5 20L9 9.5l4 6.2 2.8-3.7 5.7 8z"/><path d="M7.4 12.2l1.6 1.4 1.4-1.2"/>',
+  bag:'<path d="M5 8h14l-1.2 12.5H6.2z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/>'
+};
+const POINT_ICONS=[['target','Target'],['rotate','Rotate'],['bolt','Bolt'],['eye','Eye'],['gear','Control'],['chart','Growth'],['figure','Stance'],['check','Check'],['shield','Shield'],['group','Group'],['staffs','Staff'],['run','Move']];
+const imgCache=new Map();
+function iconImg(name,color,sw){
+  const key=name+color+sw;
+  if(imgCache.has(key))return imgCache.get(key);
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
+  const im=new Image();
+  const p=new Promise(res=>{im.onload=()=>res(im);im.onerror=()=>res(null);});
+  im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+  const rec={im,p};imgCache.set(key,rec);return rec;
+}
+
+/* ---------- presets ---------- */
+const P={
+ basics01:{name:'Bo Staff Basics 01 · skill',fmt:'reel',theme:'dark',num:'01',cat:'SKILL SERIES',pill:'REEL',l1:'BO STAFF',c1:'w',l2:'BASICS 01',c2:'y',l3:'',c3:'w',sub:'YOUR FIRST CLEAN SPIN',pts:[['target','GRIP'],['rotate','ROTATION'],['bolt','CONTROL']],ppos:'below',side:'none',sideText:'',accent:'',swoosh:true,handle:false},
+ sd01:{name:'Real Self-Defence 01 · self-defence',fmt:'reel',theme:'dark',num:'01',cat:'SELF-DEFENCE',pill:'REEL',l1:'REAL',c1:'w',l2:'SELF-DEFENCE 01',c2:'y',l3:'',c3:'w',sub:'CREATE SPACE. FIND YOUR EXIT.',pts:[],ppos:'below',side:'none',sideText:'',accent:'',swoosh:true,handle:false},
+ meet:{name:'Meet Kunal · personal',fmt:'reel',theme:'dark',num:'',cat:'PERSONAL',pill:'REEL',l1:'MEET',c1:'w',l2:'KUNAL',c2:'y',l3:'',c3:'w',sub:'',pts:[],ppos:'below',side:'roles',sideText:'TRAINER\nENGINEER\nMARTIAL ARTS\nFITNESS',accent:'More than\nMartial Arts',swoosh:false,handle:false},
+ mistakes:{name:'5 Common Bo Staff Mistakes · carousel',fmt:'post',theme:'dark',num:'',cat:'EDUCATION',pill:'CAROUSEL',l1:'5 COMMON',c1:'w',l2:'BO STAFF',c2:'y',l3:'MISTAKES',c3:'w',sub:'FIX THESE BEFORE YOU PRACTISE',pts:[],ppos:'below',side:'cards',sideText:'WRONG GRIP\nPOOR CONTROL\nRUSHING\nWRONG ANGLE\nNO FOOTWORK',accent:'',swoosh:true,handle:false},
+ basics02:{name:'Bo Staff Basics 02 · skill',fmt:'reel',theme:'dark',num:'02',cat:'SKILL SERIES',pill:'REEL',l1:'BO STAFF',c1:'w',l2:'BASICS 02',c2:'y',l3:'',c3:'w',sub:'CONTROL BEFORE SPEED',pts:[['figure','STANCE'],['target','FOCUS'],['chart','FLOW']],ppos:'right',side:'none',sideText:'',accent:'',swoosh:true,handle:false},
+ police:{name:'Police Training · institutional',fmt:'reel',theme:'dark',num:'',cat:'INSTITUTIONAL',pill:'REEL',l1:'POLICE',c1:'w',l2:'TRAINING',c2:'y',l3:'',c3:'w',sub:'BUILDING STRONGER COMMUNITIES',pts:[['eye','AWARENESS'],['gear','CONTROL'],['chart','CONFIDENCE']],ppos:'right',side:'none',sideText:'',accent:'',swoosh:false,handle:false},
+ why:{name:'Why I Train · story',fmt:'reel',theme:'dark',num:'',cat:'STORY',pill:'REEL',l1:'WHY',c1:'w',l2:'I TRAIN',c2:'y',l3:'',c3:'w',sub:'DISCIPLINE IS BUILT DAILY',pts:[],ppos:'below',side:'none',sideText:'',accent:'',swoosh:false,handle:false},
+ checklist:{name:"Beginner's Practice Checklist · carousel (light)",fmt:'post',theme:'light',num:'',cat:'BEGINNER GUIDE',pill:'CAROUSEL',l1:"A BEGINNER'S",c1:'w',l2:'PRACTICE',c2:'w',l3:'CHECKLIST',c3:'y',sub:'TRAIN SMARTER IN 10 MINUTES',pts:[],ppos:'below',side:'checklist',sideText:'WARM UP\nTECHNIQUE DRILLS\nCONTROL\nCOOLDOWN',accent:'',swoosh:true,handle:false},
+ wrist:{name:'Wrist Rotation Tutorial · breakdown',fmt:'reel',theme:'dark',num:'',cat:'TECHNIQUE BREAKDOWN',pill:'REEL',l1:'WRIST',c1:'w',l2:'ROTATION',c2:'y',l3:'TUTORIAL',c3:'w',sub:'STEP BY STEP',pts:[],ppos:'below',side:'steps',sideText:'1. Turn\n2. Guide\n3. Complete',accent:'',swoosh:true,handle:false},
+ sdall:{name:'Self-Defence for Everyone · self-defence',fmt:'reel',theme:'dark',num:'02',cat:'SELF-DEFENCE',pill:'REEL',l1:'SELF-DEFENCE',c1:'w',l2:'FOR EVERYONE',c2:'y',l3:'',c3:'w',sub:'PRACTICAL SKILLS, REAL SITUATIONS',pts:[['shield','SIMPLE'],['check','EFFECTIVE'],['bolt','CONFIDENT']],ppos:'right',side:'none',sideText:'',accent:'',swoosh:true,handle:false},
+ offmat:{name:'Off the Mat · lifestyle (keep light)',fmt:'reel',theme:'dark',num:'',cat:'LIFESTYLE',pill:'REEL',l1:'OFF',c1:'w',l2:'THE MAT',c2:'y',l3:'',c3:'w',sub:'THE DISCIPLINE BEYOND TRAINING',pts:[],ppos:'below',side:'none',sideText:'',accent:'',swoosh:false,handle:false},
+ firstclass:{name:'Your First Martial Arts Class · carousel',fmt:'post',theme:'dark',num:'',cat:'CLASS INFO',pill:'CAROUSEL',l1:'YOUR FIRST',c1:'w',l2:'MARTIAL ARTS',c2:'y',l3:'CLASS',c3:'w',sub:'WHAT TO EXPECT',pts:[],ppos:'below',side:'cards',sideText:'WHAT TO BRING\nHOW A CLASS LOOKS\nBEGINNER FRIENDLY\nFAQS\nHOW TO JOIN',accent:'',swoosh:false,handle:false},
+ basics03:{name:'Bo Staff Basics 03 · skill',fmt:'reel',theme:'dark',num:'03',cat:'SKILL SERIES',pill:'REEL',l1:'BO STAFF',c1:'w',l2:'STRIKE & HIT',c2:'y',l3:'',c3:'w',sub:'POWER COMES FROM TIMING',pts:[['bolt','POWER'],['gear','TIMING'],['target','PRECISION']],ppos:'right',side:'none',sideText:'',accent:'',swoosh:true,handle:false},
+ workshop:{name:'Training Workshop Highlights · institutional',fmt:'reel',theme:'dark',num:'',cat:'INSTITUTIONAL',pill:'REEL',l1:'TRAINING',c1:'w',l2:'WORKSHOP',c2:'y',l3:'HIGHLIGHTS',c3:'w',sub:'',pts:[['figure','SKILLS'],['group','TEAMWORK'],['chart','REAL IMPACT']],ppos:'below',side:'none',sideText:'',accent:'',swoosh:true,handle:false},
+ progress:{name:'Progress in Practice · students',fmt:'reel',theme:'dark',num:'',cat:'STUDENT PROGRESS',pill:'REEL',l1:'PROGRESS',c1:'y',l2:'IN PRACTICE',c2:'w',l3:'',c3:'w',sub:'EVERY STUDENT STARTS SOMEWHERE',pts:[],ppos:'below',side:'none',sideText:'',accent:'',swoosh:true,handle:false},
+ kicks:{name:'3 Tips for Better Kicks · carousel',fmt:'post',theme:'dark',num:'',cat:'EDUCATION',pill:'CAROUSEL',l1:'3 TIPS',c1:'w',l2:'FOR BETTER',c2:'y',l3:'KICKS',c3:'y',sub:'SIMPLE DRILLS, BIG IMPROVEMENT',pts:[],ppos:'below',side:'none',sideText:'',accent:'',swoosh:true,handle:false}
+};
+
+/* ---------- state + form ---------- */
+let photo=null;
+const preset=$('preset');
+Object.entries(P).forEach(([k,v])=>{const o=document.createElement('option');o.value=k;o.textContent=v.name;preset.appendChild(o);});
+['p1i','p2i','p3i'].forEach(id=>{const s=$(id);POINT_ICONS.forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;s.appendChild(o);});});
+
+const FIELDS=['fmt','theme','num','cat','pill','l1','c1','l2','c2','l3','c3','sub','ppos','side','sideText','accent'];
+function applyPreset(k){
+  const p=P[k];if(!p)return;
+  preset.value=k;
+  FIELDS.forEach(f=>{$(f).value=p[f]??'';});
+  $('swoosh').checked=!!p.swoosh;$('handle').checked=!!p.handle;
+  for(let i=0;i<3;i++){const pt=p.pts[i]||['check',''];$('p'+(i+1)+'i').value=pt[0];$('p'+(i+1)+'t').value=pt[1];}
+  draw();
+}
+function readState(){
+  const s={};FIELDS.forEach(f=>s[f]=$(f).value);
+  s.swoosh=$('swoosh').checked;s.handle=$('handle').checked;
+  s.pts=[1,2,3].map(i=>[$('p'+i+'i').value,$('p'+i+'t').value.trim()]).filter(p=>p[1]);
+  s.zoom=+$('zoom').value;s.px=+$('px').value;s.py=+$('py').value;s.shade=+$('shade').value;
+  return s;
+}
+
+/* ---------- drawing ---------- */
+function wrap(ctx,text,maxW){
+  const words=text.split(/\s+/).filter(Boolean),out=[];let line='';
+  words.forEach(w=>{const t=line?line+' '+w:w;if(ctx.measureText(t).width>maxW&&line){out.push(line);line=w;}else line=t;});
+  if(line)out.push(line);return out;
+}
+function swoosh(ctx,x,y,w,color){
+  ctx.save();ctx.fillStyle=color;
+  const N=24,c=t=>y-18*Math.pow(t,1.15),th=t=>15*(1-t)+3;
+  ctx.beginPath();
+  for(let i=0;i<=N;i++){const t=i/N;ctx.lineTo(x+w*t,c(t)-th(t)/2);}
+  for(let i=N;i>=0;i--){const t=i/N;ctx.lineTo(x+w*t,c(t)+th(t)/2);}
+  ctx.closePath();ctx.fill();
+  [[0.32,0.92,13,3],[0.48,0.98,22,2.2],[0.06,0.4,21,2]].forEach(([a,b,off,t2])=>{
+    ctx.beginPath();
+    for(let i=0;i<=12;i++){const t=a+(b-a)*i/12;ctx.lineTo(x+w*t,c(t)+off-t2/2);}
+    for(let i=12;i>=0;i--){const t=a+(b-a)*i/12;ctx.lineTo(x+w*t,c(t)+off+t2/2*(1-(t-a)/(b-a)*0.7));}
+    ctx.closePath();ctx.globalAlpha=0.85;ctx.fill();
+  });
+  ctx.restore();
+}
+function setLS(ctx,v){try{ctx.letterSpacing=v;}catch(e){}}
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function drawPoint(ctx,x,y,icon,label,r,fs,col){
+  ctx.save();ctx.lineWidth=3;ctx.strokeStyle=col.Y;
+  if(icon==='box'){
+    rr(ctx,x+r*0.3,y-r*0.7,r*1.4,r*1.4,6);ctx.stroke();
+    const ic=iconImg('check',col.Y,2.6).im;if(ic.complete)ctx.drawImage(ic,x+r*0.38,y-r*0.62,r*1.24,r*1.24);
+  }else{
+    ctx.beginPath();ctx.arc(x+r,y,r,0,Math.PI*2);ctx.stroke();
+    const ic=iconImg(icon,col.Y,1.7).im;const sz=r*1.12;if(ic.complete)ctx.drawImage(ic,x+r-sz/2,y-sz/2,sz,sz);
+  }
+  ctx.font=`600 ${fs}px Inter, system-ui, sans-serif`;setLS(ctx,'2px');ctx.fillStyle=col.INK;ctx.textBaseline='middle';
+  ctx.fillText(label.toUpperCase(),x+2*r+18,y+1);
+  ctx.restore();
+}
+function arrow(ctx,x,y,color,flip){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=5;ctx.lineCap='round';
+  ctx.beginPath();ctx.arc(x,y,34,flip?0.2*Math.PI:1.1*Math.PI,flip?0.95*Math.PI:1.85*Math.PI);ctx.stroke();
+  const a=flip?0.95*Math.PI:1.85*Math.PI,ex=x+34*Math.cos(a),ey=y+34*Math.sin(a);
+  ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ex+(flip?16:-6),ey+(flip?-4:14));ctx.moveTo(ex,ey);ctx.lineTo(ex+(flip?2:-16),ey+(flip?16:-2));ctx.stroke();
+  ctx.restore();
+}
+
+function render(ctx,s,preview){
+  const W=1080,H=s.fmt==='reel'?1920:1350;
+  const safe=s.fmt==='reel'?{x:0,y:240,w:1080,h:1440}:{x:34,y:0,w:1012,h:1350};
+  const light=s.theme==='light';
+  const col={INK:light?'#141414':'#FFFFFF',Y:light?'#D99A00':'#FFC21A',SUB:light?'#2B2B2B':'rgba(255,255,255,0.92)'};
+  const BG=light?'#EFEBE3':'#0B0B0C';
+  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,W,H);
+  ctx.fillStyle=BG;ctx.fillRect(0,0,W,H);
+
+  if(photo){
+    const iw=photo.naturalWidth,ih=photo.naturalHeight;
+    const sc=Math.max(W/iw,H/ih)*s.zoom,dw=iw*sc,dh=ih*sc,ox=(dw-W)/2,oy=(dh-H)/2;
+    const dx=-ox+(s.px/100)*(ox+W*0.18),dy=-oy+(s.py/100)*(oy+H*0.12);
+    ctx.save();try{ctx.filter=light?'none':'contrast(1.06) saturate(0.9)';}catch(e){}
+    ctx.drawImage(photo,dx,dy,dw,dh);ctx.restore();
+  }else{
+    const g=ctx.createRadialGradient(W*0.62,H*0.38,40,W*0.62,H*0.38,H*0.7);
+    g.addColorStop(0,light?'#E2DCD0':'#2A2A2D');g.addColorStop(1,BG);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    if(preview){ctx.save();ctx.font='600 30px Inter, system-ui, sans-serif';setLS(ctx,'6px');ctx.fillStyle=light?'rgba(0,0,0,.28)':'rgba(255,255,255,.28)';ctx.textAlign='center';ctx.fillText('ADD A PHOTO OF KUNAL',W/2,safe.y+safe.h*0.36);ctx.restore();}
+  }
+  // overlays
+  if(light){
+    if(photo){
+      let g=ctx.createLinearGradient(0,0,W,0);
+      g.addColorStop(0,'rgba(239,235,227,1)');g.addColorStop(0.45,'rgba(239,235,227,0.94)');g.addColorStop(0.75,'rgba(239,235,227,0)');
+      ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    }
+  }else{
+    const sh=s.shade;
+    let g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'rgba(0,0,0,0.5)');g.addColorStop(0.2,'rgba(0,0,0,0.05)');g.addColorStop(0.48,`rgba(0,0,0,${sh*0.3})`);
+    g.addColorStop(0.76,`rgba(0,0,0,${sh})`);g.addColorStop(1,`rgba(0,0,0,${Math.min(1,sh+0.12)})`);
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    g=ctx.createLinearGradient(0,0,W,0);g.addColorStop(0,`rgba(0,0,0,${sh*0.45})`);g.addColorStop(0.62,'rgba(0,0,0,0)');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  }
+
+  const M=64,L=safe.x+M,R=safe.x+safe.w-M,T=safe.y+52,B=safe.y+safe.h-M;
+
+  // top bar
+  ctx.save();ctx.textBaseline='middle';
+  let tx=L;
+  if(s.num.trim()){
+    ctx.fillStyle=light?'#141414':'#FFFFFF';rr(ctx,L,T,74,74,6);ctx.fill();
+    ctx.font='700 36px Inter, system-ui, sans-serif';ctx.fillStyle=light?'#FFFFFF':'#0B0B0C';ctx.textAlign='center';setLS(ctx,'0px');
+    ctx.fillText(s.num.trim(),L+37,T+39);tx=L+100;ctx.textAlign='left';
+  }
+  if(s.cat.trim()){ctx.font='600 30px Inter, system-ui, sans-serif';setLS(ctx,'5px');ctx.fillStyle=col.INK;ctx.fillText(s.cat.trim().toUpperCase(),tx,T+39);}
+  if(s.pill){
+    ctx.font='600 24px Inter, system-ui, sans-serif';setLS(ctx,'3px');const pw=ctx.measureText(s.pill).width+40;
+    ctx.strokeStyle=light?'rgba(0,0,0,.55)':'rgba(255,255,255,.7)';ctx.lineWidth=2.5;rr(ctx,R-pw,T+12,pw,54,10);ctx.stroke();
+    ctx.fillStyle=col.INK;ctx.fillText(s.pill,R-pw+20,T+40);
+  }
+  ctx.restore();
+
+  const sideItems=s.sideText.split('\n').map(t=>t.trim()).filter(Boolean).slice(0,5);
+  const rightPts=s.ppos==='right'&&s.pts.length;
+  let rightCol=0;
+  if(rightPts)rightCol=300;
+  if((s.side==='cards'||s.side==='steps')&&sideItems.length)rightCol=Math.max(rightCol,320);
+  if(s.accent.trim())rightCol=Math.max(rightCol,400);
+
+  // headline metrics
+  const lines=[[s.l1,s.c1],[s.l2,s.c2],[s.l3,s.c3]].filter(l=>l[0]&&l[0].trim()).map(l=>[l[0].trim().toUpperCase(),l[1]]);
+  const maxW=R-L-(rightCol?rightCol+28:0);
+  let size=s.fmt==='reel'?210:176;
+  ctx.font=`${size}px Anton, Impact, sans-serif`;setLS(ctx,'0px');
+  let widest=Math.max(1,...lines.map(l=>ctx.measureText(l[0]).width));
+  if(widest>maxW){size=Math.floor(size*maxW/widest);ctx.font=`${size}px Anton, Impact, sans-serif`;widest=Math.max(1,...lines.map(l=>ctx.measureText(l[0]).width));}
+  const mH=ctx.measureText('H');const capH=(mH.actualBoundingBoxAscent||size*0.74);
+  const step=capH*1.13;
+  const headH=lines.length?capH+(lines.length-1)*step:0;
+  const subSize=s.fmt==='reel'?40:36;
+  ctx.font=`600 ${subSize}px Inter, system-ui, sans-serif`;setLS(ctx,'2px');
+  const subLines=s.sub.trim()?wrap(ctx,s.sub.trim().toUpperCase(),maxW*0.96):[];
+  const subLH=subSize*1.28,subH=subLines.length?subLines.length*subLH:0;
+  const swH=s.swoosh?52:18;
+  const below=s.side==='checklist'?sideItems.map(t=>['box',t]):(s.ppos==='below'?s.pts:[]);
+  const rowH=s.fmt==='reel'?74:66,belowH=below.length?34+below.length*rowH:0;
+  const handleH=s.handle?60:0;
+  const total=headH+swH+(subH?subH+8:0)+belowH;
+  const top=B-handleH-total;
+
+  // headline group (slanted)
+  ctx.save();ctx.translate(L,top);ctx.rotate(-3.2*Math.PI/180);
+  if(!light){ctx.shadowColor='rgba(0,0,0,0.55)';ctx.shadowBlur=26;ctx.shadowOffsetY=4;}
+  ctx.font=`${size}px Anton, Impact, sans-serif`;setLS(ctx,'0px');ctx.textBaseline='alphabetic';
+  lines.forEach((l,i)=>{ctx.fillStyle=l[1]==='y'?col.Y:col.INK;ctx.fillText(l[0],0,capH+i*step);});
+  let y=headH;
+  ctx.shadowColor='transparent';
+  if(s.swoosh){swoosh(ctx,4,y+32,Math.min(widest*0.86,maxW),col.Y);y+=52;}else y+=18;
+  if(subLines.length){
+    if(!light){ctx.shadowColor='rgba(0,0,0,0.6)';ctx.shadowBlur=14;}
+    ctx.font=`600 ${subSize}px Inter, system-ui, sans-serif`;setLS(ctx,'2px');ctx.fillStyle=col.SUB;
+    subLines.forEach((t,i)=>ctx.fillText(t,6,y+subSize+i*subLH));
+  }
+  ctx.restore();
+
+  // below list
+  let by=top+headH+swH+(subH?subH+8:0)+34+rowH/2;
+  below.forEach((p,i)=>drawPoint(ctx,L,by+i*rowH,p[0],p[1],s.fmt==='reel'?27:24,s.fmt==='reel'?30:27,col));
+
+  // right column points
+  if(rightPts){
+    const n=s.pts.length,rh=104,x0=R-270,y0=B-handleH-n*rh+rh/2-10;
+    s.pts.forEach((p,i)=>drawPoint(ctx,x0,y0+i*rh,p[0],p[1],34,27,col));
+  }
+  // side elements
+  if(s.side==='roles'&&sideItems.length){
+    ctx.save();ctx.font='500 30px Inter, system-ui, sans-serif';setLS(ctx,'6px');ctx.textAlign='right';ctx.fillStyle=light?'rgba(20,20,20,.8)':'rgba(255,255,255,.86)';
+    if(!light){ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=12;}
+    sideItems.forEach((t,i)=>ctx.fillText(t.toUpperCase(),R,T+200+i*56));ctx.restore();
+  }
+  if(s.side==='cards'&&sideItems.length){
+    const cw=300,chh=s.fmt==='reel'?118:100,gap=14,x0=R-cw;
+    const yStart=s.fmt==='reel'?T+150:T+120;
+    sideItems.forEach((t,i)=>{
+      const yy=yStart+i*(chh+gap);
+      ctx.save();rr(ctx,x0,yy,cw,chh,12);ctx.fillStyle=light?'rgba(255,255,255,.8)':'rgba(10,10,10,.62)';ctx.fill();
+      ctx.strokeStyle=light?'rgba(0,0,0,.15)':'rgba(255,255,255,.18)';ctx.lineWidth=2;ctx.stroke();
+      ctx.strokeStyle=col.Y;ctx.lineWidth=3;ctx.beginPath();ctx.arc(x0+42,yy+chh/2,24,0,Math.PI*2);ctx.stroke();
+      ctx.font='700 24px Inter, system-ui, sans-serif';ctx.fillStyle=col.Y;ctx.textAlign='center';ctx.textBaseline='middle';setLS(ctx,'0px');
+      ctx.fillText(String(i+1).padStart(2,'0'),x0+42,yy+chh/2+1);
+      ctx.textAlign='left';ctx.font='700 24px Inter, system-ui, sans-serif';setLS(ctx,'1.5px');ctx.fillStyle=col.INK;
+      const ls=wrap(ctx,t.toUpperCase(),cw-100).slice(0,2);
+      ls.forEach((l,j)=>ctx.fillText(l,x0+82,yy+chh/2+(j-(ls.length-1)/2)*30));
+      ctx.restore();
+    });
+  }
+  if(s.side==='steps'&&sideItems.length){
+    ctx.save();ctx.font='64px "Caveat Brush", "Comic Sans MS", cursive';ctx.fillStyle=col.INK;ctx.textAlign='right';ctx.textBaseline='middle';
+    if(!light){ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=14;}
+    const span=s.fmt==='reel'?620:440,y0=T+(s.fmt==='reel'?190:150),gap=span/Math.max(1,sideItems.length-1||1);
+    sideItems.slice(0,3).forEach((t,i)=>{const yy=y0+i*gap;ctx.fillText(t,R,yy);ctx.shadowColor='transparent';const w=ctx.measureText(t).width;arrow(ctx,R-w-74,yy-6,col.Y,i%2===1);if(!light){ctx.shadowColor='rgba(0,0,0,.6)';}});
+    ctx.restore();
+  }
+  if(s.accent.trim()){
+    const al=s.accent.split('\n').map(t=>t.trim()).filter(Boolean).slice(0,2);
+    ctx.save();ctx.font='92px "Mr Dafoe", "Brush Script MT", cursive';ctx.fillStyle=light?'#141414':'#FFFFFF';ctx.textAlign='right';
+    if(!light){ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=14;}
+    ctx.translate(R,B-handleH-40-(al.length-1)*86);ctx.rotate(-9*Math.PI/180);
+    al.forEach((t,i)=>ctx.fillText(t,-(al.length-1-i)*20,i*86));ctx.restore();
+  }
+  if(s.handle){
+    ctx.save();ctx.font='600 24px Inter, system-ui, sans-serif';setLS(ctx,'4px');ctx.textAlign='left';ctx.fillStyle=light?'rgba(20,20,20,.65)':'rgba(255,255,255,.7)';
+    ctx.fillText('@MOVEWITHKUNAL',L,B-6);ctx.restore();
+  }
+
+  // guides
+  if(preview&&$('guides').checked){
+    ctx.save();ctx.fillStyle='rgba(0,0,0,0.5)';
+    if(s.fmt==='reel'){ctx.fillRect(0,0,W,safe.y);ctx.fillRect(0,safe.y+safe.h,W,H-safe.y-safe.h);}
+    else{ctx.fillRect(0,0,safe.x,H);ctx.fillRect(safe.x+safe.w,0,W-safe.x-safe.w,H);}
+    ctx.setLineDash([18,12]);ctx.strokeStyle='#FFC21A';ctx.lineWidth=3;ctx.strokeRect(safe.x+1.5,safe.y+1.5,safe.w-3,safe.h-3);
+    if(s.fmt==='reel'){ctx.setLineDash([]);ctx.font='600 26px Inter, system-ui, sans-serif';setLS(ctx,'4px');ctx.fillStyle='#FFC21A';ctx.textAlign='center';
+      ctx.fillText('PROFILE GRID SHOWS INSIDE THE DASHED LINE',W/2,safe.y-90);ctx.fillText('FULL COVER SHOWS WHEN THE REEL OPENS',W/2,safe.y+safe.h+110);}
+    ctx.restore();
+  }
+}
+
+const cv=$('cv'),cx=cv.getContext('2d');
+let raf=0;
+function draw(){cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const s=readState();const H=s.fmt==='reel'?1920:1350;if(cv.height!==H)cv.height=H;render(cx,s,true);});}
+
+function exportCanvas(){
+  const s=readState();const c=document.createElement('canvas');c.width=1080;c.height=s.fmt==='reel'?1920:1350;
+  render(c.getContext('2d'),s,false);return {c,s};
+}
+function slug(s){return (s.l1+' '+s.l2+' '+s.l3).toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'cover';}
+function saveCanvas(c,name){
+  return new Promise(res=>{c.toBlob(b=>{if(!b){res(false);return;}const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000);res(true);},'image/png');});
+}
+function status(t){$('status').textContent=t;clearTimeout(status.t);status.t=setTimeout(()=>$('status').textContent='',3500);}
+$('dl').addEventListener('click',async()=>{const {c,s}=exportCanvas();const ok=await saveCanvas(c,'kunal-'+slug(s)+(s.fmt==='reel'?'-reel':'-post')+'.png');status(ok?'Saved PNG to your downloads.':'Export failed. Try Chrome or Safari.');});
+
+const grid=[];
+function renderGrid(){
+  const g=$('gridprev');g.innerHTML='';
+  for(let i=0;i<9;i++){
+    const d=document.createElement('div');d.className='cell';
+    if(grid[i]){const im=document.createElement('img');im.src=grid[i];im.alt='Cover in grid';d.appendChild(im);}
+    else{d.classList.add('empty');d.textContent=i===0&&!grid.length?'Add a cover':'';}
+    g.appendChild(d);
+  }
+}
+$('addgrid').addEventListener('click',()=>{const {c}=exportCanvas();grid.unshift(c.toDataURL('image/jpeg',0.82));if(grid.length>9)grid.pop();renderGrid();status('Added to grid preview.');});
+$('cleargrid').addEventListener('click',()=>{grid.length=0;renderGrid();});
+renderGrid();
+
+$('photo').addEventListener('change',e=>{
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{photo=im;draw();status('Photo loaded. Use the sliders to frame him.');};im.src=r.result;};r.readAsDataURL(f);
+});
+preset.addEventListener('change',()=>applyPreset(preset.value));
+document.querySelectorAll('.controls input, .controls select, .controls textarea, #guides').forEach(el=>{if(el.id!=='preset'&&el.id!=='photo'){el.addEventListener('input',draw);el.addEventListener('change',draw);}});
+
+/* ---------- tabs ---------- */
+const tabs=document.querySelectorAll('nav.tabs button');
+function showTab(name){tabs.forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===name)));document.querySelectorAll('section.tab').forEach(s=>s.hidden=s.id!=='tab-'+name);window.scrollTo({top:0});}
+tabs.forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+
+/* ---------- plan ---------- */
+const WEEKS=[
+ {t:'Week 1 · Launch the series',d:'2 – 8 Nov',posts:[
+  {k:'basics01',day:'Mon 2 Nov · 2:00 pm',slot:'Skill',fmt:'Reel',reuse:true,
+   hook:'Full-speed spin, freeze, on-screen "Day 1 of 10".',
+   shoot:'Recut the 10 Oct spinning tutorial (his best non-personal reel at 123). Add a 3-second opener to camera: "This is the first spin I teach every student."',
+   cta:'Comment question. Tag the staff as a product.',
+   cap:`Bo Staff Basics 01: your first clean spin.
+
+Loose grip, turn from the wrist, let the staff do the work. Five minutes of this before anything else.
+
+Which part trips you up most: grip, rotation or control? Tell me below 👇
+
+#bostaff #bostafftutorial #martialartstraining #weapontraining #movewithkunal`},
+  {k:'sd01',day:'Wed 4 Nov · 7:30 pm',slot:'Authority',fmt:'Reel',reuse:false,
+   hook:'Grab already happening. Text: "If someone grabs you like this…"',
+   shoot:'New, 15–20 s, filmed at class with one student volunteer. One escape only: break the grip, make space, move to the exit.',
+   cta:'"Send this to someone who travels alone." Shares push reach.',
+   cap:`Real Self-Defence 01: create space, find your exit.
+
+If someone grabs you, the goal isn't to win a fight. It's to break the grip, make distance and get out.
+
+Save this, and send it to someone who travels alone late.
+
+#selfdefense #selfdefenseforwomen #womensafety #jkd #movewithkunal`},
+  {k:'meet',day:'Fri 6 Nov · 7:30 pm',slot:'Person',fmt:'Reel · pin it',reuse:true,
+   hook:'To camera: "I\'m a textile engineer. I also train police officers."',
+   shoot:'20–30 s talking head, cut with B-roll he already has: police session, bo staff, karate, family moments.',
+   cta:'Ask what to teach first. Pin as post 1.',
+   cap:`Hi, I'm Kunal 👊
+
+Textile engineer by degree, martial artist by choice. 200+ students trained, from beginners to a police workshop.
+
+Here you'll find bo staff skills, real self-defence and the discipline behind both.
+
+What should I break down first? 👇
+
+#martialarts #selfdefense #bostaff #fitnesscoach #movewithkunal`},
+  {k:'mistakes',day:'Sun 8 Nov · 11:00 am',slot:'Carousel',fmt:'Carousel · 7 slides',reuse:true,
+   hook:'Cover + 5 mistake slides + "Save this" slide.',
+   shoot:'Stills from existing tutorial footage. One mistake per slide: wrong grip, poor control, rushing, wrong angle, no footwork. Last slide points to Bo Staff Basics.',
+   cta:'"Which one are you guilty of?"',
+   cap:`5 bo staff mistakes I correct in almost every beginner. Swipe →
+
+Number 3 is the one nearly everyone makes.
+
+Which one are you guilty of? Be honest 👇
+
+#bostaff #bostafftraining #martialartstips #weapontraining #movewithkunal`}
+ ]},
+ {t:'Week 2 · Show the proof',d:'9 – 15 Nov',posts:[
+  {k:'basics02',day:'Mon 9 Nov · 2:00 pm',slot:'Skill',fmt:'Reel',reuse:true,
+   hook:'Split screen fast and sloppy vs slow and clean. Text: "Fast isn\'t good."',
+   shoot:'Recut the 12 and 14 Oct skill clips. Add the 3-second face opener.',
+   cta:'Ask followers to tag him in their attempt.',
+   cap:`Bo Staff Basics 02: control before speed.
+
+Fast and sloppy looks good for one second. Slow and clean is what lets you go fast later.
+
+Drill this at half speed for a week, then tag me in your video 👇
+
+#bostaff #bostaffskills #martialartstraining #kalaripayattu #movewithkunal`},
+  {k:'police',day:'Wed 11 Nov · 7:30 pm',slot:'Authority',fmt:'Reel',reuse:true,
+   hook:'Officers mid-drill. Text: "What I teach police officers in one session."',
+   shoot:'Recut the 7 Oct Indore Police JKD RAT footage into three beats: awareness, control, confidence. Real footage only.',
+   cta:'DM "TRAIN" for team, college or office sessions.',
+   cap:`What I covered with Indore Police officers in one JKD RAT session: awareness, control, confidence.
+
+The same three matter for anyone walking home at night.
+
+Want a session for your team, college or office? DM me "TRAIN".
+
+#selfdefencetraining #policetraining #jkd #corporateworkshop #indore`},
+  {k:'why',day:'Fri 13 Nov · 7:30 pm',slot:'Person',fmt:'Reel',reuse:false,
+   hook:'Dark, early-morning shot. Voiceover: "Nobody pays me to train on the days I don\'t feel like it."',
+   shoot:'20 s of his real routine on a normal day: alarm, travel, warm-up, training. Voiceover on top.',
+   cta:'"What keeps you showing up?"',
+   cap:`Nobody pays me to train on the days I don't feel like it.
+
+That's the point. Discipline is built on those days, not the easy ones.
+
+What keeps you showing up? 👇
+
+#discipline #martialartslife #trainingdaily #mindset #movewithkunal`},
+  {k:'checklist',day:'Sun 15 Nov · 11:00 am',slot:'Carousel',fmt:'Carousel · 6 slides',reuse:true,
+   hook:'Light cover, one slide per block.',
+   shoot:'Stills from class. Warm up 2 min, technique drills 4 min, control 3 min, cooldown 1 min. Final slide: "Save for your next session."',
+   cta:'Save.',
+   cap:`Short on time? This is the 10-minute practice I give every beginner. Swipe →
+
+Warm up, drill, control, cool down. Do it four days a week for a month.
+
+Save it for your next session.
+
+#martialartstraining #beginnerworkout #bostaff #hometraining #movewithkunal`}
+ ]},
+ {t:'Week 3 · Reach beyond martial artists',d:'16 – 22 Nov',posts:[
+  {k:'wrist',day:'Mon 16 Nov · 2:00 pm',slot:'Skill',fmt:'Reel',reuse:true,
+   hook:'Slow-motion close-up of the wrist. Text: "Your wrist, not your arm."',
+   shoot:'Recut the 16 Oct wrist rotation reel (only 39 first time) with this new hook and on-screen steps: turn, guide, complete.',
+   cta:'"Which move next?"',
+   cap:`Your wrist does the work, not your arm.
+
+Three steps: turn, guide, complete. Slow it down until it feels boring, then speed up.
+
+Part of the Bo Staff Basics series. Which move next? 👇
+
+#bostaff #bostafftutorial #wristrotation #weapontraining #movewithkunal`},
+  {k:'sdall',day:'Wed 18 Nov · 7:30 pm',slot:'Authority',fmt:'Reel',reuse:false,
+   hook:'To camera: "Three rules I teach every student before any technique."',
+   shoot:'Talking head plus a female student demonstrating each rule (with her consent): stay aware, make space, get to safety.',
+   cta:'Send to someone who needs it.',
+   cap:`Self-defence isn't about strength. These are the 3 rules I teach every student first.
+
+Stay aware. Make space. Get to safety.
+
+Send this to someone who needs it.
+
+#selfdefenseforwomen #selfdefense #womensafety #personalsafety #movewithkunal`},
+  {k:'offmat',day:'Fri 20 Nov · 7:30 pm',slot:'Person',fmt:'Reel',reuse:false,
+   hook:'A real moment, no text in the first second.',
+   shoot:'Family time with his nephew, engineering work, travel. Natural clips with a trending audio. Use a light cover or just the photo.',
+   cta:'None. Let it breathe.',
+   cap:`Off the mat ✨
+
+Engineer, chachu, traveller, forever a student. Training is what I do. This is who I do it for.
+
+#lifebeyondtraining #martialartist #dailylife #family #movewithkunal`},
+  {k:'firstclass',day:'Sun 22 Nov · 11:00 am',slot:'Carousel',fmt:'Carousel · 7 slides',reuse:true,
+   hook:'Cover + one slide per question.',
+   shoot:'Class photos. What to bring, how a class runs, beginner friendly, FAQs, how to join. Last slide: "DM TRAIN".',
+   cta:'DM "TRAIN" for the next batch.',
+   cap:`Thinking about your first martial arts class? Here's exactly what happens. Swipe →
+
+What to bring, how a class runs, and how to join.
+
+DM me "TRAIN" for the next batch.
+
+#martialartsclass #selfdefenseclass #beginnerfriendly #karateclass #movewithkunal`}
+ ]},
+ {t:'Week 4 · Convert followers to students',d:'23 – 29 Nov',posts:[
+  {k:'basics03',day:'Mon 23 Nov · 2:00 pm',slot:'Skill',fmt:'Reel',reuse:true,
+   hook:'Hardest strike at full speed, then slow-mo on the hips.',
+   shoot:'Recut the 22 Oct strikes tutorial. Mention the staff is linked in bio instead of a separate product reel.',
+   cta:'"Staff I use is linked in my bio."',
+   cap:`Bo Staff Basics 03: strike and hit.
+
+Power comes from timing, not muscle. Watch the hips on the slow-mo.
+
+The staff I use is linked in my bio.
+
+#bostaff #bostaffstrikes #martialartstraining #weapontraining #movewithkunal`},
+  {k:'workshop',day:'Wed 25 Nov · 7:30 pm',slot:'Authority',fmt:'Reel',reuse:false,
+   hook:'The loudest, most energetic moment of the session first.',
+   shoot:'Highlights from any class or workshop that week. Collab-post with the school, college or group if they have an account.',
+   cta:'DM "WORKSHOP".',
+   cap:`Highlights from this week's training session.
+
+Real skills, real people, real progress. Want this for your school, college or team?
+
+DM me "WORKSHOP".
+
+#selfdefenceworkshop #martialartstraining #teamtraining #corporatewellness #movewithkunal`},
+  {k:'progress',day:'Fri 27 Nov · 7:30 pm',slot:'Person',fmt:'Reel',reuse:false,
+   hook:'Day one clip, hard cut to today.',
+   shoot:'A student\'s first-week footage next to now. Get the student\'s permission (and a parent\'s if under 18).',
+   cta:'Tag the student. Mention classes.',
+   cap:`Day one vs today.
+
+Every student starts somewhere. This is what showing up every week looks like.
+
+Proud of you 👊 (shared with permission)
+
+#studentprogress #martialartsjourney #transformation #karate #movewithkunal`},
+  {k:'kicks',day:'Sun 29 Nov · 11:00 am',slot:'Carousel',fmt:'Carousel · 5 slides',reuse:false,
+   hook:'Cover + one tip per slide + recap.',
+   shoot:'Three stills per tip from one 10-minute shoot: chamber first, pivot the base foot, return fast.',
+   cta:'"Tell me which one helped."',
+   cap:`3 tips that fixed my students' kicks in a week. Swipe →
+
+Chamber first, pivot the base foot, return fast.
+
+Try it today and tell me which one helped 👇
+
+#kicks #martialartstips #karatetraining #flexibility #movewithkunal`}
+ ]}
+];
+const weeksEl=$('weeks');let capId=0;
+WEEKS.forEach(w=>{
+  const sec=document.createElement('div');
+  sec.innerHTML=`<div class="week-head"><h3>${w.t}</h3><span class="eyebrow">${w.d}</span></div><div class="posts"></div>`;
+  const box=sec.querySelector('.posts');
+  w.posts.forEach(p=>{
+    const id='cap'+(capId++);
+    const el=document.createElement('article');el.className='post';
+    el.innerHTML=`<div class="meta"><span class="chip slot">${p.slot}</span><span class="chip">${p.fmt}</span>${p.reuse?'<span class="chip reuse">Reuses footage</span>':''}</div>
+      <div><span class="eyebrow">${p.day}</span><h3 style="margin-top:6px">${P[p.k].l1} ${P[p.k].l2} ${P[p.k].l3}</h3></div>
+      <dl><dt>Hook</dt><dd></dd><dt>Shoot</dt><dd></dd><dt>CTA</dt><dd></dd></dl>
+      <div class="cap" id="${id}"></div>
+      <div class="actions"><button class="btn sm" data-copy="${id}">Copy caption</button><button class="btn ghost sm" data-open="${p.k}">Make this cover</button></div>`;
+    const dds=el.querySelectorAll('dd');dds[0].textContent=p.hook;dds[1].textContent=p.shoot;dds[2].textContent=p.cta;
+    el.querySelector('.cap').textContent=p.cap;
+    box.appendChild(el);
+  });
+  weeksEl.appendChild(sec);
+});
+document.addEventListener('click',e=>{
+  const c=e.target.closest('[data-copy]');
+  if(c){const t=$(c.dataset.copy).textContent;const done=()=>{const o=c.textContent;c.textContent='Copied';setTimeout(()=>c.textContent=o,1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,()=>selectText(c.dataset.copy));}else selectText(c.dataset.copy);}
+  const o=e.target.closest('[data-open]');
+  if(o){applyPreset(o.dataset.open);showTab('maker');}
+});
+function selectText(id){const r=document.createRange();r.selectNodeContents($(id));const s=getSelection();s.removeAllRanges();s.addRange(r);}
+
+/* ---------- profile counts ---------- */
+$('bioCount').textContent=[...$('bioTxt').textContent].length+' / 150 characters';
+$('nameCount').textContent=[...$('nameTxt').textContent].length+' / 64 characters';
+
+/* ---------- highlights ---------- */
+const HL=[['Classes','run'],['Self-Defence','shield'],['Bo Staff','staffs'],['Students','trophy'],['Training','group'],['Fitness','dumbbell'],['Lifestyle','mountain'],['Gear','bag']];
+const hlEl=$('hl');const hlCanvases=[];
+function renderHL(c,icon){
+  const x=c.getContext('2d');x.fillStyle='#0B0B0C';x.fillRect(0,0,1080,1920);
+  const g=x.createRadialGradient(540,960,10,540,960,520);g.addColorStop(0,'#1C1C1F');g.addColorStop(1,'#0B0B0C');x.fillStyle=g;x.fillRect(0,0,1080,1920);
+  const rec=iconImg(icon,'#FFC21A',1.5);const draw=()=>x.drawImage(rec.im,540-230,960-230,460,460);
+  if(rec.im.complete)draw();else rec.p.then(im=>{if(im){draw();thumb(c);}});
+}
+function thumb(c){const t=c._thumb;if(!t)return;const tx=t.getContext('2d');tx.drawImage(c,0,420,1080,1080,0,0,240,240);}
+HL.forEach(([name,icon],i)=>{
+  const c=document.createElement('canvas');c.width=1080;c.height=1920;renderHL(c,icon);
+  const t=document.createElement('canvas');t.width=240;t.height=240;c._thumb=t;thumb(c);
+  const item=document.createElement('div');item.className='item';
+  const inp=document.createElement('input');inp.type='text';inp.value=name;inp.id='hl'+i;inp.setAttribute('aria-label','Highlight name');
+  const b=document.createElement('button');b.className='btn ghost sm';b.textContent='Download';
+  b.addEventListener('click',()=>saveCanvas(c,'highlight-'+slugText(inp.value)+'.png'));
+  item.append(t,inp,b);hlEl.appendChild(item);hlCanvases.push([c,inp]);
+});
+function slugText(t){return t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'cover';}
+$('dlall').addEventListener('click',async()=>{for(const [c,inp] of hlCanvases){await saveCanvas(c,'highlight-'+slugText(inp.value)+'.png');await new Promise(r=>setTimeout(r,450));}});
+
+/* ---------- boot ---------- */
+const iconLoads=[];
+POINT_ICONS.forEach(([n])=>{iconLoads.push(iconImg(n,'#FFC21A',1.7).p,iconImg(n,'#D99A00',1.7).p);});
+iconLoads.push(iconImg('check','#FFC21A',2.6).p,iconImg('check','#D99A00',2.6).p);
+applyPreset('basics01');
+const fontLoads=['200px Anton','600 40px Inter','700 40px Inter','500 30px Inter','92px "Mr Dafoe"','64px "Caveat Brush"'].map(f=>document.fonts?document.fonts.load(f).catch(()=>{}):Promise.resolve());
+Promise.all([...iconLoads,...fontLoads]).then(()=>{draw();hlCanvases.forEach(([c])=>thumb(c));});
+if(document.fonts)document.fonts.addEventListener('loadingdone',draw);
+})();
+</script>
+</body>
+</html>

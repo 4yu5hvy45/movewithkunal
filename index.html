@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Move With Kunal · Martial Arts &amp; Self-Defence Coach</title>
+<meta name="description" content="Kunal Gupta teaches bo staff, real self-defence, JKD, karate and martial-arts fitness. 200+ students trained. Classes, workshops and private coaching.">
+<meta property="og:title" content="Move With Kunal">
+<meta property="og:description" content="Bo staff, real self-defence, JKD and karate with Kunal Gupta. Classes, workshops and private coaching.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0A0B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230A0A0B'/%3E%3Cpath d='M12 50L52 14' stroke='%23FFC21A' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Mr+Dafoe&display=swap">
+<style>
+/* Layout: one long dojo-black page. Anton slanted hooks, gold for the one word that matters, a spinning staff as the single moving moment. */
+:root{
+  --bg:#0A0A0B; --bg-2:#111113; --surface:#161618; --line:#2A2A2E;
+  --ink:#F2F0EA; --ink-2:#B9B6AD; --ink-3:#807D75; --gold:#FFC21A; --gold-ink:#1A1400; --bone:#EFEBE3;
+  --f-display:"Anton",Impact,"Arial Narrow",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-hand:"Mr Dafoe","Brush Script MT",cursive;
+  --gutter:max(20px,env(safe-area-inset-left,0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--f-body);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.in{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:.95;margin:0;text-transform:uppercase;text-wrap:balance;letter-spacing:.005em}
+h2{font-size:clamp(44px,7vw,88px)}
+h3{font-size:clamp(24px,2.6vw,30px);line-height:1.05}
+.g{color:var(--gold)}
+.slant{display:inline-block;transform:rotate(-3deg);transform-origin:left bottom}
+p{margin:0;max-width:62ch}
+.eyebrow{font:600 12px/1 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.lede{font-size:clamp(17px,1.6vw,19px);color:var(--ink-2)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--gold-ink);text-decoration:none;font:700 13px/1 var(--f-body);letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;border-radius:999px;border:1px solid var(--gold);transition:transform .2s ease,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink-3)}
+a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.brush{display:block;height:14px;width:min(360px,70%);margin-top:14px;background:var(--gold);clip-path:polygon(0 55%,100% 0,98% 45%,0 100%);transform:rotate(-3deg);transform-origin:left}
+
+/* nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(10,10,11,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.nav .in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;font:400 22px/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase}
+.mark svg{width:28px;height:28px}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;font:600 13px/1 var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.nav ul a:hover{color:var(--ink)}
+.nav .btn{padding:12px 16px;font-size:12px}
+@media (max-width:860px){.nav ul{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;padding-block:72px 80px}
+.hero h1{font-size:clamp(68px,12vw,168px);line-height:.88}
+.hero h1 .row{display:block}
+.hero .copy{display:flex;flex-direction:column;gap:26px;min-width:0;position:relative;z-index:2}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero .sig{font-family:var(--f-hand);font-size:clamp(34px,4vw,52px);color:var(--ink);transform:rotate(-6deg);margin-top:-6px;line-height:1}
+.stage{position:relative;aspect-ratio:4/5;max-width:100%;border-radius:18px;overflow:hidden;background:
+  radial-gradient(120% 80% at 70% 30%,#232327 0%,#0A0A0B 70%);border:1px solid var(--line)}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.9)}
+.stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.75) 100%)}
+.staff{position:absolute;inset:0;display:grid;place-items:center}
+.staff svg{width:92%;height:auto;animation:spin 7s cubic-bezier(.45,.05,.55,.95) infinite}
+@keyframes spin{0%{transform:rotate(-28deg)}50%{transform:rotate(152deg)}100%{transform:rotate(332deg)}}
+.stage .tag{position:absolute;left:18px;bottom:16px;z-index:2;font:600 12px/1.4 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+.stage.has-photo .staff{display:none}
+@media (max-width:860px){.hero .in{grid-template-columns:minmax(0,1fr);padding-block:44px 56px}.stage{max-width:440px}}
+
+/* proof strip */
+.proof{border-bottom:1px solid var(--line);background:var(--bg-2)}
+.proof .in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.proof div{padding:26px 18px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:4px;min-width:0}
+.proof div:first-child{padding-left:0}
+.proof div:last-child{border-right:0}
+.proof b{font:400 clamp(30px,3.4vw,44px)/1 var(--f-display);font-variant-numeric:tabular-nums}
+.proof span{font-size:13.5px;color:var(--ink-2)}
+@media (max-width:760px){.proof .in{grid-template-columns:repeat(2,minmax(0,1fr))}.proof div{padding:20px 14px;border-bottom:1px solid var(--line)}.proof div:nth-child(2n){border-right:0}.proof div:nth-child(3){padding-left:0}.proof div:nth-child(n+3){border-bottom:0}}
+
+section.block{padding-block:clamp(72px,10vw,120px);border-bottom:1px solid var(--line)}
+.head{display:flex;flex-direction:column;gap:18px;margin-bottom:48px}
+
+/* disciplines */
+.disc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.disc article{background:var(--bg);padding:28px 24px 30px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.disc .ic{width:52px;height:52px;border:2px solid var(--gold);border-radius:50%;display:grid;place-items:center}
+.disc .ic svg{width:26px;height:26px}
+.disc p{color:var(--ink-2);font-size:15px}
+.disc .num{font:600 12px/1 var(--f-body);letter-spacing:.16em;color:var(--ink-3)}
+@media (max-width:960px){.disc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.disc{grid-template-columns:minmax(0,1fr)}}
+
+/* feature: police */
+.feature .in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.feature .photo{aspect-ratio:5/4;border-radius:16px;overflow:hidden;background:radial-gradient(90% 90% at 30% 30%,#202024,#0E0E10);border:1px solid var(--line);position:relative;display:grid;place-items:center}
+.feature .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.feature .photo .fallback{font:400 clamp(60px,8vw,110px)/.9 var(--f-display);color:#1F1F23;text-transform:uppercase;text-align:center;letter-spacing:.02em}
+.three{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line);margin-top:8px}
+.three div{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.three b{font:400 26px/1 var(--f-display);color:var(--gold)}
+.three span{color:var(--ink-2)}
+.three strong{color:var(--ink);font-weight:600;margin-right:6px}
+@media (max-width:860px){.feature .in{grid-template-columns:minmax(0,1fr);gap:32px}}
+
+/* programs */
+.programs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.prog{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.prog .who{font:600 12px/1 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.prog p{color:var(--ink-2)}
+.prog ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;color:var(--ink-2);font-size:15px}
+.prog li{display:flex;gap:10px}
+.prog li::before{content:"";flex:0 0 8px;height:8px;margin-top:9px;background:var(--gold);transform:rotate(45deg)}
+.prog .btn{align-self:flex-start;margin-top:auto}
+@media (max-width:760px){.programs{grid-template-columns:minmax(0,1fr)}}
+
+/* series */
+.series{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.ep{position:relative;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:30px;min-height:220px;transition:border-color .2s,transform .2s;min-width:0}
+.ep:hover{border-color:var(--gold);transform:translateY(-3px)}
+.ep .badge{width:46px;height:46px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font:700 18px/1 var(--f-body);border-radius:4px}
+.ep h3{margin-top:auto}
+.ep .go{font:600 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.ep:hover .go{color:var(--gold)}
+@media (max-width:960px){.series{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.series{grid-template-columns:minmax(0,1fr)}.ep{min-height:0}}
+
+/* about */
+.about .in{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:start}
+.about .portrait{aspect-ratio:3/4;border-radius:16px;overflow:hidden;position:relative;background:linear-gradient(160deg,#1E1E22,#0B0B0C);border:1px solid var(--line)}
+.about .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.about .portrait .roles{position:absolute;right:18px;top:20px;text-align:right;font:500 12px/2 var(--f-body);letter-spacing:.24em;color:var(--ink-2)}
+.about .portrait .sig{position:absolute;left:18px;bottom:14px;font:400 44px/1 var(--f-hand);transform:rotate(-7deg)}
+.about .text{display:flex;flex-direction:column;gap:20px}
+.about .text p{color:var(--ink-2);font-size:17px}
+.about .text p strong{color:var(--ink);font-weight:600}
+@media (max-width:860px){.about .in{grid-template-columns:minmax(0,1fr);gap:32px}.about .portrait{max-width:420px}}
+
+/* gear */
+.gear{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:880px}
+.gear a{display:flex;justify-content:space-between;align-items:center;gap:18px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;transition:border-color .2s;min-width:0}
+.gear a:hover{border-color:var(--gold)}
+.gear .len{font:400 48px/1 var(--f-display);color:var(--gold)}
+.gear .meta{display:flex;flex-direction:column;gap:4px;min-width:0}
+.gear .meta b{font-weight:600}
+.gear .meta span{font-size:14px;color:var(--ink-2)}
+.gear .arrow{font:600 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+@media (max-width:640px){.gear{grid-template-columns:minmax(0,1fr)}}
+.small{font-size:13px;color:var(--ink-3);margin-top:16px}
+
+/* faq */
+.faq{max-width:860px;border-top:1px solid var(--line)}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:22px 0;font:600 17px/1.4 var(--f-body)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 28px/1 var(--f-display);color:var(--gold);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--ink-2);padding:0 0 22px}
+
+/* cta */
+.cta{padding-block:clamp(80px,12vw,140px);background:var(--gold);color:var(--gold-ink);border-bottom:0}
+.cta h2{font-size:clamp(56px,10vw,132px)}
+.cta .in{display:flex;flex-direction:column;gap:26px}
+.cta p{color:#3A2E00;font-size:18px}
+.cta .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.cta .btn.ghost{background:transparent;color:var(--gold-ink);border-color:rgba(26,20,0,.35)}
+.cta .code{font:400 clamp(36px,5vw,56px)/1 var(--f-display);letter-spacing:.04em}
+
+footer{padding-block:32px;color:var(--ink-3);font-size:13px}
+footer .in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:none;color:var(--ink-2)}
+footer a:hover{color:var(--ink)}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.staff svg{animation:none;transform:rotate(-28deg)}.btn,.ep{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="in">
+    <a class="mark" href="#top" aria-label="Move With Kunal, home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="none" stroke="#FFC21A" stroke-width="2"/><path d="M8 24L24 8" stroke="#FFC21A" stroke-width="3" stroke-linecap="round"/></svg>
+      Move With Kunal
+    </a>
+    <ul>
+      <li><a href="#teach">What I teach</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#series">Bo staff series</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn" href="https://ig.me/m/movewithkunal" target="_blank" rel="noopener">DM “TRAIN”</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="in">
+    <div class="copy">
+      <span class="eyebrow">Martial arts &amp; self-defence coach</span>
+      <h1><span class="row slant">Move</span><span class="row slant">With</span><span class="row slant g">Kunal</span></h1>
+      <p class="lede">Bo staff, real self-defence, JKD and karate, taught step by step. From your first clean spin to staying safe on the way home.</p>
+      <div class="actions">
+        <a class="btn" href="#programs">Find a program</a>
+        <a class="btn ghost" href="https://www.instagram.com/movewithkunal" target="_blank" rel="noopener">Watch on Instagram</a>
+      </div>
+      <span class="sig" aria-hidden="true">More than martial arts</span>
+    </div>
+    <div class="stage" id="heroStage">
+      <img src="assets/hero.jpg" alt="Kunal Gupta training with a bo staff" onload="this.parentElement.classList.add('has-photo')" onerror="this.remove()">
+      <div class="staff" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <g opacity=".14" fill="none" stroke="#FFC21A" stroke-width="2"><circle cx="200" cy="200" r="182"/><circle cx="200" cy="200" r="132" stroke-dasharray="4 10"/></g>
+          <path d="M200 26 A174 174 0 0 1 362 140" fill="none" stroke="#FFC21A" stroke-width="3" opacity=".35" stroke-linecap="round"/>
+          <path d="M200 374 A174 174 0 0 1 38 260" fill="none" stroke="#FFC21A" stroke-width="3" opacity=".35" stroke-linecap="round"/>
+          <line x1="44" y1="200" x2="356" y2="200" stroke="#C98A3E" stroke-width="12" stroke-linecap="round"/>
+          <line x1="44" y1="200" x2="356" y2="200" stroke="#E7B06A" stroke-width="3" stroke-linecap="round" transform="translate(0 -3)" opacity=".7"/>
+          <rect x="120" y="192" width="22" height="16" rx="3" fill="#0A0A0B" opacity=".55"/>
+          <rect x="258" y="192" width="22" height="16" rx="3" fill="#0A0A0B" opacity=".55"/>
+        </svg>
+      </div>
+      <span class="tag">@movewithkunal</span>
+    </div>
+  </div>
+</section>
+
+<div class="proof">
+  <div class="in">
+    <div><b>200+</b><span>students trained</span></div>
+    <div><b>Police</b><span>JKD RAT workshop, Indore Police</span></div>
+    <div><b>4</b><span>disciplines: bo staff, JKD, karate, MMA fitness</span></div>
+    <div><b>All levels</b><span>beginners, women, teams, institutions</span></div>
+  </div>
+</div>
+
+<section class="block" id="teach">
+  <div class="in">
+    <div class="head">
+      <span class="eyebrow">What I teach</span>
+      <h2>Skill you can <span class="g">use</span></h2>
+      <p class="lede">Every session mixes technique, control and conditioning. You leave knowing one thing well, not ten things badly.</p>
+    </div>
+    <div class="disc">
+      <article>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FFC21A" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l16 16M20 4L4 20"/></svg></span>
+        <span class="num">01</span><h3>Bo staff</h3>
+        <p>Spins, strikes, catches and flow. Coordination and wrist control that carry into every other discipline.</p>
+      </article>
+      <article>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FFC21A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 2.8v6c0 5-3.3 8.3-7.5 9.6-4.2-1.3-7.5-4.6-7.5-9.6v-6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></span>
+        <span class="num">02</span><h3>Self-defence</h3>
+        <p>JKD RAT principles for real situations: awareness, breaking a grip, making space and getting out.</p>
+      </article>
+      <article>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FFC21A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2"/><path d="M12 7.5v6M12 13.5l-4.5 7M12 13.5l4.5 7M6.5 10.5h11"/></svg></span>
+        <span class="num">03</span><h3>Karate</h3>
+        <p>Stances, kicks and kata built on discipline. The foundation of balance and clean technique.</p>
+      </article>
+      <article>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FFC21A" stroke-width="1.8" stroke-linecap="round"><path d="M6.5 7.5v9M3.5 9.5v5M17.5 7.5v9M20.5 9.5v5M6.5 12h11"/></svg></span>
+        <span class="num">04</span><h3>MMA fitness</h3>
+        <p>Martial-arts conditioning: strength, mobility and stamina that serve the skill, not the mirror.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block feature">
+  <div class="in">
+    <div class="photo">
+      <img src="assets/police.jpg" alt="Kunal leading a self-defence session for Indore Police officers" onerror="this.remove()">
+      <span class="fallback" aria-hidden="true">JKD<br>RAT</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <span class="eyebrow">Trusted by those who protect</span>
+      <h2>Police <span class="g">training</span></h2>
+      <p class="lede">Kunal ran a self-defence and combat session for the Indore Police Force, introducing the key concepts of JKD RAT (Rapid Assault Tactics). The same three ideas sit at the heart of every class.</p>
+      <div class="three">
+        <div><b>01</b><span><strong>Awareness.</strong>Spot the threat before it reaches you.</span></div>
+        <div><b>02</b><span><strong>Control.</strong>Stay calm, keep your structure, manage distance.</span></div>
+        <div><b>03</b><span><strong>Confidence.</strong>Drill it until the response is automatic.</span></div>
+      </div>
+      <a class="btn ghost" style="align-self:flex-start" href="https://www.instagram.com/reel/DeMhhP2hFbG/" target="_blank" rel="noopener">Watch the session</a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="programs">
+  <div class="in">
+    <div class="head">
+      <span class="eyebrow">Programs</span>
+      <h2>Train with <span class="g">Kunal</span></h2>
+      <p class="lede">Four ways to start. Send a DM with the word in the button and Kunal will share the next dates and details.</p>
+    </div>
+    <div class="programs">
+      <article class="prog">
+        <span class="who">Beginners &amp; regulars</span>
+        <h3>Group classes</h3>
+        <p>Weekly sessions covering bo staff, karate and conditioning. Beginner friendly, with progressions for experienced students.</p>
+        <ul><li>Structured warm-up, drills and cooldown</li><li>Bo Staff Basics progression</li><li>All fitness levels welcome</li></ul>
+        <a class="btn" href="https://ig.me/m/movewithkunal" target="_blank" rel="noopener">DM “TRAIN”</a>
+      </article>
+      <article class="prog">
+        <span class="who">Women &amp; girls</span>
+        <h3>Self-defence workshops</h3>
+        <p>Short, practical sessions on staying aware, escaping grabs and getting to safety. No experience or strength needed.</p>
+        <ul><li>Real situations, simple techniques</li><li>Safe, respectful environment</li><li>Ideal for colleges and societies</li></ul>
+        <a class="btn" href="https://ig.me/m/movewithkunal" target="_blank" rel="noopener">DM “SAFE”</a>
+      </article>
+      <article class="prog">
+        <span class="who">Schools, colleges, teams, forces</span>
+        <h3>Institutional training</h3>
+        <p>On-site sessions for police, security teams, offices and schools, built on JKD RAT principles and tailored to your group.</p>
+        <ul><li>Custom session length and focus</li><li>Groups of any size</li><li>Delivered at your venue</li></ul>
+        <a class="btn" href="https://ig.me/m/movewithkunal" target="_blank" rel="noopener">DM “WORKSHOP”</a>
+      </article>
+      <article class="prog">
+        <span class="who">One to one</span>
+        <h3>Private coaching</h3>
+        <p>Focused sessions on the skill you want: bo staff flow, kicks, self-defence or a fitness goal.</p>
+        <ul><li>Your pace, your goal</li><li>Technique breakdown and feedback</li><li>Practice plan between sessions</li></ul>
+        <a class="btn" href="https://ig.me/m/movewithkunal" target="_blank" rel="noopener">DM “PRIVATE”</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="series">
+  <div class="in">
+    <div class="head">
+      <span class="eyebrow">Free on Instagram</span>
+      <h2>Bo Staff <span class="g">Basics</span></h2>
+      <p class="lede">Short tutorials that build on each other. Start at the first spin, save each one, practise at half speed.</p>
+    </div>
+    <div class="series">
+      <a class="ep" href="https://www.instagram.com/reel/DeUP6YGBqVn/" target="_blank" rel="noopener"><span class="badge">01</span><h3>Your first clean spin</h3><span class="go">Watch →</span></a>
+      <a class="ep" href="https://www.instagram.com/reel/Dejssv3BwD0/" target="_blank" rel="noopener"><span class="badge">02</span><h3>Wrist rotation</h3><span class="go">Watch →</span></a>
+      <a class="ep" href="https://www.instagram.com/reel/DezKZ6OKc9c/" target="_blank" rel="noopener"><span class="badge">03</span><h3>Strikes</h3><span class="go">Watch →</span></a>
+      <a class="ep" href="https://www.instagram.com/reel/De9coQdhxM5/" target="_blank" rel="noopener"><span class="badge">04</span><h3>The catch</h3><span class="go">Watch →</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="block about" id="about">
+  <div class="in">
+    <div class="portrait">
+      <img src="assets/about.jpg" alt="Portrait of Kunal Gupta" onerror="this.remove()">
+      <div class="roles" aria-hidden="true">TRAINER<br>ENGINEER<br>MARTIAL ARTIST</div>
+      <span class="sig" aria-hidden="true">Kunal</span>
+    </div>
+    <div class="text">
+      <span class="eyebrow">Meet Kunal</span>
+      <h2>More than <span class="g">martial arts</span></h2>
+      <span class="brush" aria-hidden="true"></span>
+      <p><strong>Textile engineer by degree, martial artist by choice.</strong> Kunal Gupta has trained 200+ students, from complete beginners to police officers.</p>
+      <p>His approach is simple: build strong bodies and strong minds together. Technique first, control before speed, and the discipline to keep showing up on the days you don't feel like it.</p>
+      <p>Off the mat he's an engineer, a proud chachu and a traveller. On it, he's the coach who breaks every move down until it makes sense.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
+        <a class="btn ghost" href="https://www.instagram.com/movewithkunal" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn ghost" href="https://www.youtube.com/@kunalgupta6526" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="gear">
+  <div class="in">
+    <div class="head">
+      <span class="eyebrow">Gear</span>
+      <h2>The staff <span class="g">I use</span></h2>
+      <p class="lede">Two lengths. Pick by height: 5.5 ft for most adults, 4 ft for younger students and tight spaces.</p>
+    </div>
+    <div class="gear">
+      <a href="https://link.amazon/B05C2ul29" target="_blank" rel="noopener sponsored"><span class="len">5.5 ft</span><span class="meta"><b>Bo staff · full length</b><span>Adults, full spins and strikes</span></span><span class="arrow">Amazon →</span></a>
+      <a href="https://link.amazon/B0fLsISov" target="_blank" rel="noopener sponsored"><span class="len">4 ft</span><span class="meta"><b>Bo staff · short</b><span>Kids, beginners, indoor practice</span></span><span class="arrow">Amazon →</span></a>
+    </div>
+    <p class="small">Links go to Amazon. Kunal may earn a small commission at no extra cost to you.</p>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="in">
+    <div class="head">
+      <span class="eyebrow">Your first class</span>
+      <h2>Good <span class="g">questions</span></h2>
+    </div>
+    <div class="faq">
+      <details><summary>Do I need any experience?</summary><p>No. Every program starts from the basics, and drills are scaled so beginners and experienced students can train in the same session.</p></details>
+      <details><summary>What should I bring?</summary><p>Comfortable clothes you can move in, water and a small towel. For bo staff sessions, bring a staff if you have one; if not, ask in your DM.</p></details>
+      <details><summary>Is self-defence training safe for beginners?</summary><p>Yes. Techniques are taught slowly, with control and a willing partner, before any speed is added. Nobody is forced into drills they aren't comfortable with.</p></details>
+      <details><summary>Can you train our college, office or team?</summary><p>Yes. Kunal runs on-site workshops for institutions and teams, including a session for the Indore Police Force. DM “WORKSHOP” with your group size and dates.</p></details>
+      <details><summary>How do I join?</summary><p>Send a DM on Instagram with the word for your program: TRAIN, SAFE, WORKSHOP or PRIVATE. Kunal will reply with timings, location and fees.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="in">
+    <span class="eyebrow" style="color:#5A4700">Ready when you are</span>
+    <h2>Start <span class="slant">today</span></h2>
+    <p>One message is all it takes. Send the word below on Instagram.</p>
+    <span class="code">DM “TRAIN”</span>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn" href="https://ig.me/m/movewithkunal" target="_blank" rel="noopener">Message on Instagram</a>
+      <a class="btn ghost" href="https://www.youtube.com/@kunalgupta6526" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <span>© 2026 Kunal Gupta · Move With Kunal</span>
+    <span><a href="https://www.instagram.com/movewithkunal" target="_blank" rel="noopener">@movewithkunal</a> · Site by <a href="https://beyondbranding.media" target="_blank" rel="noopener">Beyond Branding</a></span>
+  </div>
+</footer>
+</body>
+</html>
